@@ -188,7 +188,10 @@ module Pod
       `rm -rf .git`
       `git init`
       `git add -A`
-      `git remote add origin @git_repo_address`
+      
+      addRemote = "git remote add origin #{@git_repo_address}"
+      exec addRemote
+
     end
 
     def validate_user_details

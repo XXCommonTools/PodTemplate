@@ -126,6 +126,9 @@ RUBY
     def replace_internal_project_settings
       puts project_folder
       puts "#######################################################"
+      puts @string_replacements
+      puts "#######################################################"
+
       Dir.glob(project_folder + "/**/**/**/**").each do |name|
         next if Dir.exists? name
         text = File.read(name)

@@ -124,16 +124,15 @@ RUBY
     end
 
     def replace_internal_project_settings
+      puts project_folder
+      puts "#######################################################"
       Dir.glob(project_folder + "/**/**/**/**").each do |name|
         next if Dir.exists? name
         text = File.read(name)
 
-        puts @string_replacements
-        puts "end"
-        puts text
-        puts "end"
-
         for find, replace in @string_replacements
+            puts text
+            puts "text end"
             text = text.gsub(find, replace)
         end
 

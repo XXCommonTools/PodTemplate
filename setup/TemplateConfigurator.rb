@@ -4,7 +4,7 @@ require 'colored2'
 module Pod
   class TemplateConfigurator
 
-    attr_reader :pod_name, :pods_for_podfile, :prefixes, :test_example_file, :username, :email
+    attr_reader :pod_name, :pods_for_podfile, :prefixes, :test_example_file, :username, :email,:home_page_url,:git_repo_address
 
     def initialize(pod_name)
       @pod_name = pod_name
@@ -72,6 +72,8 @@ module Pod
 
       self.setUserName
       self.setEmail
+      self.setHomePageUrl
+      self.setGitRepoAddress
       
       framework = self.ask_with_answers("What language do you want to use?", ["Swift", "ObjC"]).to_sym
       case framework
@@ -129,6 +131,8 @@ module Pod
         text.gsub!("${USER_EMAIL}", user_email)
         text.gsub!("${YEAR}", year)
         text.gsub!("${DATE}", date)
+        text.gsub!("${HOME_PAGE_URL}",@home_page_url)
+        text.gsub!("${SOURCE_URL}",@git_repo_address)
         File.open(file_name, "w") { |file| file.puts text }
       end
     end
@@ -199,6 +203,16 @@ module Pod
     def setEmail
 
        @email = self.ask("What is the author's email")
+      
+    end
+    def setHomePageUrl
+
+      @home_page_url = self.ask("What is the repo's home page url")
+      
+    end
+    def setGitRepoAddress
+
+      @git_repo_address = self.ask("What is the repo's git url or ssh")
       
     end
 

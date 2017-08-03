@@ -128,6 +128,11 @@ RUBY
         next if Dir.exists? name
         text = File.read(name)
 
+        puts @string_replacements
+        puts "end"
+        puts text
+        puts "end"
+
         for find, replace in @string_replacements
             text = text.gsub(find, replace)
         end

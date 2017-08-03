@@ -190,7 +190,7 @@ module Pod
       `git add -A`
       
       addRemote = "git remote add origin #{@git_repo_address}"
-      exec addRemote
+      system addRemote
 
     end
 

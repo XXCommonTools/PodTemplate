@@ -202,28 +202,28 @@ module Pod
 
     def setUserName
 
-       @username = self.ask("What is the author's name")
+       @username = self.ask("What is the author's name").lstrip.rstrip
 
     end
 
     def setEmail
 
-       @email = self.ask("What is the author's email")
+       @email = self.ask("What is the author's email").lstrip.rstrip
       
     end
     def setHomePageUrl
 
-      @home_page_url = self.ask("What is the repo's home page url")
+      @home_page_url = self.ask("What is the repo's home page url").lstrip.rstrip
       
     end
     def setGitRepoAddress
 
-      @git_repo_address = self.ask("What is the repo's git url or ssh")
+      @git_repo_address = self.ask("What is the repo's git url or ssh").lstrip.rstrip
       
     end
     def setPodDesc
 
-      @pod_desc = self.ask("What is the pod's desc")
+      @pod_desc = self.ask("What is the pod's desc").lstrip.rstrip
       
     end
 

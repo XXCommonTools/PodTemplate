@@ -5,9 +5,29 @@ module Pod
   class TemplateConfigurator
 
     attr_reader :pod_name, :pods_for_podfile, :prefixes, :test_example_file, :username, :email,:home_page_url,:git_repo_address,:pod_desc
+    attr_reader :language,:containsDemo,:testFrameworks,:containsViewTest,:prefix
 
-    def initialize(pod_name)
-      @pod_name = pod_name
+    def initialize(argv)
+
+    #userName,spilt,userEmail,spilt,podName,spilt,
+    #podDesc,spilt,homeUrl,spilt,podUrl,spilt,self.language,spilt,
+    #self.containsDemo,spilt,self.testFrameworks,spilt,self.containsViewTest
+
+      array = argv.split("==!@#==",-1)
+
+      @username = array.at(0)
+      @email = array.at(1)
+      @pod_name = array.at(2)
+      @pod_desc = array.at(3)
+      @home_page_url = array.at(4)
+      @git_repo_address = array.at(5)
+      @language = array.at(6)
+      @containsDemo = array.at(7)
+      @testFrameworks = array.at(8)
+      @containsViewTest = array.at(9)
+      @prefix = array.at(10)
+
+
       @pods_for_podfile = []
       @prefixes = []
       @message_bank = MessageBank.new(self)
@@ -70,13 +90,7 @@ module Pod
     def run
       @message_bank.welcome_message
 
-      self.setUserName
-      self.setEmail
-      self.setPodDesc
-      self.setHomePageUrl
-      self.setGitRepoAddress
-
-      framework = self.ask_with_answers("What language do you want to use?", ["Swift", "ObjC"]).to_sym
+      framework = @language.to_sym
       case framework
         when :swift
           ConfigureSwift.perform(configurator: self)
@@ -200,30 +214,28 @@ module Pod
 
     #----------------------------------------#
 
-    def setUserName
 
-       @username = self.ask("What is the author's name").lstrip.rstrip
+    def contains_demo
 
-    end
-
-    def setEmail
-
-       @email = self.ask("What is the author's email").lstrip.rstrip
+      @containsDemo
       
     end
-    def setHomePageUrl
 
-      @home_page_url = self.ask("What is the repo's home page url").lstrip.rstrip
+    def testFrameWorks
+
+      @testFrameworks
       
     end
-    def setGitRepoAddress
+    
+    def containsViewTest
 
-      @git_repo_address = self.ask("What is the repo's git url or ssh").lstrip.rstrip
+      @containsViewTest
       
     end
-    def setPodDesc
 
-      @pod_desc = self.ask("What is the pod's desc").lstrip.rstrip
+    def prefix
+
+      @prefix
       
     end
 

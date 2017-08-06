@@ -4,29 +4,22 @@ require 'colored2'
 module Pod
   class TemplateConfigurator
 
-    attr_reader :pod_name, :pods_for_podfile, :prefixes, :test_example_file, :username, :email,:home_page_url,:git_repo_address,:pod_desc
-    attr_reader :language,:containsDemo,:testFrameworks,:containsViewTest,:prefix
+    attr_reader :pods_for_podfile, :prefixes, :test_example_file
+    attr_reader :username, :email,:home_page_url,:git_repo_address,:pod_desc,:pod_name,:language,:containsDemo,:testFrameworks,:containsViewTest,:prefix
 
-    def initialize(argv)
+    def initialize(allData)
 
-    #userName,spilt,userEmail,spilt,podName,spilt,
-    #podDesc,spilt,homeUrl,spilt,podUrl,spilt,self.language,spilt,
-    #self.containsDemo,spilt,self.testFrameworks,spilt,self.containsViewTest
-
-      array = argv.split("==!@#==",-1)
-
-      @username = array.at(0)
-      @email = array.at(1)
-      @pod_name = array.at(2)
-      @pod_desc = array.at(3)
-      @home_page_url = array.at(4)
-      @git_repo_address = array.at(5)
-      @language = array.at(6)
-      @containsDemo = array.at(7)
-      @testFrameworks = array.at(8)
-      @containsViewTest = array.at(9)
-      @prefix = array.at(10)
-
+      @username = allData['username']
+      @email = allData['email']
+      @pod_name = allData['pod_name']
+      @pod_desc = allData['pod_desc']
+      @home_page_url = allData['home_page_url']
+      @git_repo_address = allData['git_repo_address']
+      @language = allData['language']
+      @containsDemo = allData['containsDemo']
+      @testFrameworks = allData['testFrameworks']
+      @containsViewTest = allData['containsViewTest']
+      @prefix = allData['prefix']
 
       @pods_for_podfile = []
       @prefixes = []
@@ -119,12 +112,12 @@ module Pod
     end
 
     def run_pod_install
-      puts "\nRunning " + "pod install".magenta + " on your new library."
-      puts ""
+      # puts "\nRunning " + "pod install".magenta + " on your new library."
+      # puts ""
 
-      Dir.chdir("Example") do
-        system "pod install"
-      end
+      # Dir.chdir("Example") do
+      #   system "pod install"
+      # end
 
       `git add Example/#{pod_name}.xcodeproj/project.pbxproj`
       `git commit -m "Initial commit"`

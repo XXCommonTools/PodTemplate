@@ -5,5 +5,44 @@ Dir[File.join($current_dir, "setup/*.rb")].each do |file|
   require_relative(file)
 end
 
-argv = ARGV.shift
-Pod::TemplateConfigurator.new(argv).run
+class Configuator
+
+	attr_reader :allData
+
+	 def getData
+        
+        string = ARGV.shift
+        array = string.split("==!@#==",-1)
+        
+        username = array.at(0)
+        email = array.at(1)
+        pod_name = array.at(2)
+        pod_desc = array.at(3)
+        home_page_url = array.at(4)
+        git_repo_address = array.at(5)
+        language = array.at(6)
+        containsDemo = array.at(7)
+        testFrameworks = array.at(8)
+        containsViewTest = array.at(9)
+        prefix = array.at(10)
+        
+        @allData = Hash.new("allData")
+        @allData = {"username"=>username,"email"=>email,"pod_name"=>pod_name,"pod_desc"=>pod_desc,"home_page_url"=>home_page_url,"git_repo_address"=>git_repo_address,"language"=>language,"containsDemo"=>containsDemo,"testFrameworks"=>testFrameworks,"containsViewTest"=>containsViewTest,"prefix"=>prefix}
+        
+    end
+
+    def printData
+        
+        @allData.each{|key,value|
+            
+            puts "#{key} = #{value}"
+            
+        }
+    end
+
+
+end
+configuator = Configuator.new
+configuator.getData
+configuator.printData
+Pod::TemplateConfigurator.new(configuator.allData).run
